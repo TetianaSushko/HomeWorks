@@ -13,7 +13,7 @@ public class DepositCalculator {
             }
 
             String resultOfRate = String.format("%.2f", amountRateForYear);
-            System.out.println("Rate for year = " + resultOfRate + "UAH");
+            System.out.println("Rate for year = " + resultOfRate + " " + "UAH");
 
             String resultOfAmount = String.format("%.2f", amount);
             System.out.println("Amount = " + resultOfAmount + " " + "UAH" );
