@@ -1,15 +1,17 @@
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
         CollectionOfStrings collectionOfStrings = new CollectionOfStrings();
 
-        collectionOfStrings.add(1, "abc");
-        collectionOfStrings.add(3, "abcdf");
-        collectionOfStrings.add("abcd");
-        collectionOfStrings.delete(3);
-        collectionOfStrings.delete("abc");
-        collectionOfStrings.get(4);
+        collectionOfStrings.add("A");
+        collectionOfStrings.add("B");
+        collectionOfStrings.add(null);
+        collectionOfStrings.add("C");
+        collectionOfStrings.add(1, "D");
+        collectionOfStrings.delete (null);
+        collectionOfStrings.delete(1);
+        collectionOfStrings.get(1);
 
     }
 }
