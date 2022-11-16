@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 public interface Collection {
 
     boolean add(String o);
@@ -15,5 +17,6 @@ public interface Collection {
     boolean clear();
 
     int size();
+    Iterator<String> iterator();
 
 }

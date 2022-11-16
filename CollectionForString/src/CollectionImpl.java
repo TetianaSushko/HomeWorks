@@ -1,10 +1,36 @@
 import java.util.Arrays;
+import java.util.Iterator;
+public class CollectionImpl implements Collection, Iterable<String> {
 
-public class CollectionImpl implements Collection {
+    @Override
+    public int size() {
+        return size;
+    }
+
     private String[] elements;
     private int DEFAULT_CAPACITY = 10;
     private int size;
 
+    @Override
+    public Iterator<String> iterator() {
+        Iterator<String> iterator = new Iterator<String>() {
+            private int currentIndex = 0;
+            @Override
+            public boolean hasNext() {
+                return currentIndex < size;
+            }
+            @Override
+            public String next() {
+                return elements[currentIndex++];
+            }
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
+        return iterator;
+
+    }
     public CollectionImpl() {
         elements = new String[DEFAULT_CAPACITY];
     }
@@ -16,7 +42,7 @@ public class CollectionImpl implements Collection {
         }
         elements[size] = o;
         size++;
-        System.out.println(Arrays.toString(elements));
+//        System.out.println(Arrays.toString(elements));
         return false;
     }
 
@@ -30,7 +56,7 @@ public class CollectionImpl implements Collection {
                 size - index);
         elements[index] = o;
         size++;
-        System.out.println(Arrays.toString(elements));
+//        System.out.println(Arrays.toString(elements));
         return false;
     }
 
@@ -100,10 +126,5 @@ public class CollectionImpl implements Collection {
             es[i] = null;
         System.out.println(Arrays.toString(elements));
         return false;
-    }
-
-    @Override
-    public int size() {
-        return size;
     }
 }
