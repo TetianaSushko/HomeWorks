@@ -28,7 +28,6 @@ public class RockPaperScissorsGame {
             } else if (computerMove.equalsIgnoreCase("rock")) {
                 System.out.println("You lose(((");
                 return -1;
-
             }
         }
         return 0;

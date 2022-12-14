@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         File file = new File("C:\\Users\\Tania\\projects\\HomeWorks\\Game\\ProcessGame.txt");
-
     try {
         if (file.exists()){
             file.delete();
