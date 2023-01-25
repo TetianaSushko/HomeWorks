@@ -1,10 +1,18 @@
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Random;
 import java.util.Scanner;
 
 public class GameService {
+    private static final Logger logger = LoggerFactory.getLogger("stdout");
+    private static final Logger save = LoggerFactory.getLogger("logger");
+    private static final Logger process = LoggerFactory.getLogger("process");
+
     private int countOfGames;
-    private String playerMoveIs = "Please, enter your move (paper/rock/scissors)";
-    private String computerMoveIs = "Computer move is: ";
+    String playerMoveIs = "Please, enter your move (paper/rock/scissors)";
+    String computerMoveIs = "Computer move is: ";
 
     public GameService(int countOfGames) {
         this.countOfGames = countOfGames;
@@ -18,11 +26,13 @@ public class GameService {
         for (int i = 0; i < countOfGames; i++) {
 
             String computerMove = rps[new Random().nextInt(rps.length)];
-            System.out.println(playerMoveIs);
+            logger.info(playerMoveIs);
             String playerMove = getPlayerMove();
+            process.info(playerMoveIs + " -> " + playerMove);
+            logger.info(computerMoveIs + " -> " + computerMove);
+            process.info(computerMoveIs + " -> " + computerMove);
             fileService.writeToFile(playerMoveIs + " -> " + playerMove);
             fileService.writeToFile(computerMoveIs + " -> " + computerMove);
-            System.out.println(computerMoveIs + computerMove);
 
             int value = checkIfYouWinner(computerMove, playerMove);
             if (value < 0) {
@@ -39,9 +49,9 @@ public class GameService {
                 break;
             }
         }
+        save.info("You won : " + wins + " times and lost : " + loses + " times.");
+        save.info("Total count round's of your is: " + totalCountOfGames);
 
-        System.out.println("You won : " + wins + " times and lost : " + loses + " times.");
-        System.out.println("Total count round's of your is: " + totalCountOfGames);
         fileService.writeToFile("You won : " + wins + " times and lost : " + loses + " times.");
         fileService.writeToFile("Total count round's of your is: " + totalCountOfGames);
     }
@@ -49,12 +59,12 @@ public class GameService {
         String playAgain;
         Scanner cs1 = new Scanner(System.in);
         while (true) {
-            System.out.println("Do you want to continue game? [Y/N]");
-            playAgain = cs1.nextLine();
+            logger.info("Do you want to continue game? [Y/N]");
+            process.info(playAgain = cs1.nextLine());
             if (playAgain.equalsIgnoreCase("y") || playAgain.equalsIgnoreCase("n")) {
                 break;
             }
-            System.out.println(playAgain + " is not valid");
+            logger.info(playAgain + " is not valid");
         }
         return playAgain;
     }
@@ -63,48 +73,52 @@ public class GameService {
         String playerMove;
         Scanner cs = new Scanner(System.in);
         while (true) {
-
-
             playerMove = cs.nextLine();
             if (playerMove.equalsIgnoreCase("rock") || playerMove.equalsIgnoreCase("paper") || playerMove.equalsIgnoreCase("scissors")) {
                 break;
             }
-            System.out.println(playerMove + " is not valid");
+            logger.info(playerMove + " is not valid");
         }
         return playerMove;
     }
     public int checkIfYouWinner(String computerMove, String playerMove) {
         if (playerMove.equalsIgnoreCase(computerMove)) {
-            System.out.println("It's a draw this time!");
+            logger.info("It's a draw this time!");
+            process.info("It's a draw this time!");
             return 0;
         }
 
         if (playerMove.equalsIgnoreCase("rock")) {
             if (computerMove.equalsIgnoreCase("paper")) {
-                System.out.println("You lose(((");
+                logger.info("You lose(((");
+                process.info("You lose(((");
                 return -1;
             } else if (computerMove.equalsIgnoreCase("scissors")) {
-                System.out.println("You win !!!");
+                logger.info("You win !!!");
+                process.info("You win !!!");
                 return 1;
             }
         } else if (playerMove.equalsIgnoreCase("paper")) {
             if (computerMove.equalsIgnoreCase("rock")) {
-                System.out.println("You win !!!");
+                logger.info("You win !!!");
+                process.info("You win !!!");;
                 return 1;
             } else if (computerMove.equalsIgnoreCase("scissors")) {
-                System.out.println("You lose(((");
+                logger.info("You lose(((");
+                process.info("You lose(((");
                 return -1;
             }
         } else if (playerMove.equalsIgnoreCase("scissors")) {
             if (computerMove.equalsIgnoreCase("paper")) {
-                System.out.println("You win !!!");
+                logger.info("You win !!!");
+                process.info("You win !!!");
                 return 1;
             } else if (computerMove.equalsIgnoreCase("rock")) {
-                System.out.println("You lose(((");
+                logger.info("You lose(((");
+                process.info("You lose(((");
                 return -1;
             }
         }
         return 0;
     }
-
 }
