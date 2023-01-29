@@ -5,7 +5,7 @@
 
             <appender name="process_log"
                       class="ch.qos.logback.core.rolling.RollingFileAppender">
-                <file>${LOG_FOLDER}/process/process_log</file>
+                <file>${LOG_FOLDER}/process/process.log</file>
 
                 <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
                     <level>DEBUG</level>
